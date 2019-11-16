@@ -1,6 +1,14 @@
-def getGuessedWord(secretWord, lettersGuessed):
-    for Let in secretWord:
-        if Let in lettersGuessed:
-            secretWord = secretWord.replace(Let,'_')
-        else: 
-            return (secretWord)
+def getGuessedWord():
+    currentGuess = " "
+    wordComplete = 1
+    for count in range(WordLength):
+        if arrayWord[count] in lettersCorrect:
+            currentGuess += arrayWord[count]
+        else:
+            currentGuess += "*"
+            wordComplete = 0
+    print("The Secret Word: ", currentGuess);
+    if wordComplete == 1:
+        print("Congrautlations! You guessed the word!")
+        exit(0)
+    return
