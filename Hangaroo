@@ -2,23 +2,18 @@ import random
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
 Reserve_Words = ["cute", "shift", "engineering", "going", "arts", "and", "letters"]
 secretWord = random.choice(Reserve_Words);
+stringWord = "".join(secretWord);
+arrayWord = [];
 WordLength = len(secretWord);
 lettersGuessed = [];
 lettersWrong = [];
+lettersCorrect = [];
 MistakesMade = 0;
-turns = 0;
-blank = "*";
+wordComplete = 0;
 
-#Starting The Game
-def welcome():
-        name = input("Enter your name: ")
-        print("Hello,", name)
-        print("Let's play Hangaroo")
-welcome()
-    
-def WordSpecs():
-        print("The Secret Word is", WordLength, "letters");
-WordSpecs()
+
+for count in range(WordLength):
+    arrayWord.append(stringWord[count])
 
 def isWordGuessed(secretWord,lettersGuessed):
     for Let in secretWord:
@@ -26,43 +21,64 @@ def isWordGuessed(secretWord,lettersGuessed):
             bool (lettersGuessed)==1
         else:
             return (0)
-
-def getGuessedWord(secretWord, lettersGuessed):
-    for Let in secretWord:
-        if Let in lettersGuessed:
-            continue
-        else: 
-            secretWord = secretWord.replace(Let,'_')
+        
+def getGuessedWord():
+    currentGuess = " "
+    wordComplete = 1
+    for count in range(WordLength):
+        if arrayWord[count] in lettersCorrect:
+            currentGuess += arrayWord[count]
+        else:
+            currentGuess += "*"
+            wordComplete = 0
+    print("The Secret Word: ", currentGuess);
+    if wordComplete == 1:
+        print("Congrautlations! You guessed the word!")
+        exit(0)
+    return
     
-def getAvailableLetters(lettersGuessed):
+def getAvailableLetters(secretWord, lettersGuessed):
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
     for Let in lettersGuessed:
-        alphabet.remove(Let)
-        print(alphabet)
-        
+            alphabet = alphabet.replace(Let,"")
+    return(alphabet)
+
+def WordSpecs():
+    hiddenWord = "";
+    for count in range(WordLength):
+        hiddenWord += "*"
+    print("The Secret Word: ", hiddenWord);
+    
 def Guessing():
-    while turns >= 0:
-        isWordGuessed(secretWord, lettersGuessed) ==0
+    turns=0;
+    while wordComplete==0:
         guess = input("Guess a Letter: ")
         LowerGuess = guess.lower()
         if LowerGuess not in alphabet:
-               print("Enter a Valid Letter:")
+            print("Enter a Valid Letter!")
         elif LowerGuess in lettersGuessed:
-            print ("You have already guess this letter:")
-            getAvailableLetters(lettersGuessed)
-        else:
+            print ("You have already guess this letter!")
+        else :
             lettersGuessed.append(LowerGuess)
             if LowerGuess in secretWord:
                 print ("")
-                print (getGuessedWord(secretWord, lettersGuessed))
-                print (getAvailableLetters(lettersGuessed))
-                MistakesMade = len(lettersWrong)
-                print ("Mistakes:", MistakesMade)
-                
+                lettersCorrect.append(LowerGuess)
+                getGuessedWord()
             else:
                 print ("Letter is not in the word.")
                 lettersWrong.append(LowerGuess)
-                MistakesMade = len(lettersWrong)
-                print ("Mistakes:", MistakesMade)
-                print (getAvailableLetters(lettersGuessed))
-Guessing()
+        MistakesMade = len(lettersWrong);
+        print ("Mistakes: ", MistakesMade);
+        print ("Available Letters: ", lettersGuessed);
+        turns += 1;
+        print ("Total Turns: ", turns);
+       
+
+def welcome():
+    name = input("Enter your name: ")
+    print("Hello,", name)
+    print("Let's play Hangaroo")
+    
+    WordSpecs()
+    Guessing()
+welcome()
