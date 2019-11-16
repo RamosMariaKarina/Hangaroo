@@ -1,1 +1,6 @@
-
+def isWordGuessed(secretWord,lettersGuessed):
+    for Let in secretWord:
+        if Let in lettersGuessed:
+            bool (lettersGuessed)==1
+        else:
+            return (0)
