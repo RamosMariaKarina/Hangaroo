@@ -1,1 +1,68 @@
+import random
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
+Reserve_Words = ["cute", "shift", "engineering", "going", "arts", "and", "letters"]
+secretWord = random.choice(Reserve_Words);
+WordLength = len(secretWord);
+lettersGuessed = [];
+lettersWrong = [];
+MistakesMade = 0;
+turns = 0;
+blank = "*";
 
+#Starting The Game
+def welcome():
+        name = input("Enter your name: ")
+        print("Hello,", name)
+        print("Let's play Hangaroo")
+welcome()
+    
+def WordSpecs():
+        print("The Secret Word is", WordLength, "letters");
+WordSpecs()
+
+def isWordGuessed(secretWord,lettersGuessed):
+    for Let in secretWord:
+        if Let in lettersGuessed:
+            bool (lettersGuessed)==1
+        else:
+            return (0)
+
+def getGuessedWord(secretWord, lettersGuessed):
+    for Let in secretWord:
+        if Let in lettersGuessed:
+            secretWord = secretWord.replace(Let,'_')
+        else: 
+            return (secretWord)
+    
+def getAvailableLetters(lettersGuessed):
+    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
+    for Let in lettersGuessed:
+        alphabet.remove(Let)
+        print(alphabet)
+        
+def Guessing():
+    while turns >= 0:
+        isWordGuessed(secretWord, lettersGuessed) ==0
+        guess = input("Guess a Letter: ")
+        LowerGuess = guess.lower()
+        if LowerGuess not in alphabet:
+               print("Enter a Valid Letter:")
+        elif LowerGuess in lettersGuessed:
+            print ("You have already guess this letter:")
+            getAvailableLetters(lettersGuessed)
+        else:
+            lettersGuessed.append(LowerGuess)
+            if LowerGuess in secretWord:
+                print ("")
+                print (getGuessedWord(secretWord, lettersGuessed))
+                print ("Available Letters:", getAvailableLetters(lettersGuessed))
+                MistakesMade = len(lettersWrong)
+                print ("Mistakes:", MistakesMade)
+                
+            else:
+                print ("Letter is not in the word.")
+                lettersWrong.append(LowerGuess)
+                MistakesMade = len(lettersWrong)
+                print ("Mistakes:", MistakesMade)
+                print ("Available Letters:", getAvailableLetters(lettersGuessed))
+Guessing()
