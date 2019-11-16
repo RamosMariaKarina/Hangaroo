@@ -30,9 +30,9 @@ def isWordGuessed(secretWord,lettersGuessed):
 def getGuessedWord(secretWord, lettersGuessed):
     for Let in secretWord:
         if Let in lettersGuessed:
-            secretWord = secretWord.replace(Let,'_')
+            continue
         else: 
-            return (secretWord)
+            secretWord = secretWord.replace(Let,'_')
     
 def getAvailableLetters(lettersGuessed):
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ]
@@ -55,7 +55,7 @@ def Guessing():
             if LowerGuess in secretWord:
                 print ("")
                 print (getGuessedWord(secretWord, lettersGuessed))
-                print ("Available Letters:", getAvailableLetters(lettersGuessed))
+                print (getAvailableLetters(lettersGuessed))
                 MistakesMade = len(lettersWrong)
                 print ("Mistakes:", MistakesMade)
                 
@@ -64,5 +64,5 @@ def Guessing():
                 lettersWrong.append(LowerGuess)
                 MistakesMade = len(lettersWrong)
                 print ("Mistakes:", MistakesMade)
-                print ("Available Letters:", getAvailableLetters(lettersGuessed))
+                print (getAvailableLetters(lettersGuessed))
 Guessing()
